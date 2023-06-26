@@ -43,6 +43,7 @@ public class PaginaOrientador implements ActionListener{
     JComboBox<String> caixaEnsino;
     JComboBox<String> caixaOpcInsEdi;
     JComboBox<String> caixaOpcInsEdi2;
+    JComboBox<String> caixaOpcMaterias;
     JLabel labelSerie = new JLabel();
     JLabel labelTurma = new JLabel();
     JLabel labelGrau = new JLabel();
@@ -58,7 +59,10 @@ public class PaginaOrientador implements ActionListener{
     String[] exemplos = {"A","B"};
     String[] ensinos = {"Fundamental", "Médio"};
     String[] opcoesInsEdi = {"Nota 1","Nota 2","Nota 3"};
-    String[] opcoesInsEdi2 = {"Nome", "Nota 1","Nota 2","Nota 3"};
+    String[] opcoesInsEdi2 = {"Nota 1","Nota 2","Nota 3"};
+    String[] opcoesMaterias1 = {"Português", "Matemática","Literatura", "Inglês", "Espanhol", "História",
+    "Sociologia", "Ciências Naturais"};
+    
     String nome;
     boolean confirmacaoRepeticao = false;
     int referenciaListaAnterior;
@@ -103,6 +107,8 @@ public class PaginaOrientador implements ActionListener{
         caixaOpcInsEdi.setBounds(350,500,100,30);
         caixaOpcInsEdi2 = new JComboBox<>(opcoesInsEdi2);
         caixaOpcInsEdi2.setBounds(350,500,100,30);
+        caixaOpcMaterias = new JComboBox<String>(opcoesMaterias1);
+        caixaOpcMaterias.setBounds(470,500,100,30);
         botaoPesquisar.setBounds(450,60,120,30);
         botaoPesquisar.addActionListener(this);
         botaoInserirAluno.setBounds(0,250,180,30);
@@ -111,7 +117,7 @@ public class PaginaOrientador implements ActionListener{
         botaoEditar.addActionListener(this);
         botaoConfirmarInserirAluno.setBounds(470,500,130,30);
         botaoConfirmarInserirAluno.addActionListener(this);
-        botaoConfirmarEditar.setBounds(460,500,140,30);
+        botaoConfirmarEditar.setBounds(600,500,140,30);
         botaoConfirmarEditar.addActionListener(this);
         botaoConfirmarInserirNota.setBounds(470,500,130,30);
         botaoConfirmarInserirNota.addActionListener(this);
@@ -151,6 +157,7 @@ public class PaginaOrientador implements ActionListener{
         c.add(caixaEnsino);
         c.add(caixaOpcInsEdi);
         c.add(caixaOpcInsEdi2);
+        c.add(caixaOpcMaterias);
         c.add(labelSerie);
         c.add(labelTurma);
         c.add(labelGrau);
@@ -168,6 +175,7 @@ public class PaginaOrientador implements ActionListener{
         campoInserirAluno.setVisible(false);
         caixaOpcInsEdi.setVisible(false);
         caixaOpcInsEdi2.setVisible(false);
+        caixaOpcMaterias.setVisible(false);
         botaoConfirmarInserirAluno.setVisible(false);
         botaoConfirmarEditar.setVisible(false);
         botaoConfirmarInserirNota.setVisible(false);
@@ -195,6 +203,7 @@ public class PaginaOrientador implements ActionListener{
             botaoConfirmarEditar.setVisible(false);
             caixaOpcInsEdi.setVisible(false);
             caixaOpcInsEdi2.setVisible(false);
+            caixaOpcMaterias.setVisible(false);
             campoTroca.setVisible(false);
             labelTroca.setVisible(false);
 
@@ -219,6 +228,19 @@ public class PaginaOrientador implements ActionListener{
             objColegioDAO.funcaoInserirAlunoBD(objcolegioDTO);
             campoInserirAluno.setText("");
             atualizarTable();*/
+        }
+        if(e.getSource()==botaoEditar){
+            campoInserirAluno.setVisible(false);
+            botaoConfirmarInserirAluno.setVisible(false);
+            caixaOpcInsEdi.setVisible(false);
+            
+            caixaOpcMaterias.setVisible(true);
+            labelTroca.setVisible(true);
+            caixaOpcInsEdi2.setVisible(true);
+            campoInserirAluno.setVisible(true);
+            botaoConfirmarEditar.setVisible(true);
+            campoTroca.setVisible(true);
+            
         }
     }
 }
