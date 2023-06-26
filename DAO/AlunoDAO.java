@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import DTO.Aluno;
-import DTO.Desempenho;
 
 public class AlunoDAO {
     Connection conn;

@@ -241,6 +241,8 @@ public class PaginaOrientador implements ActionListener{
             botaoConfirmarEditar.setVisible(true);
             campoTroca.setVisible(true);
             
+
+            
         }
     }
 }
