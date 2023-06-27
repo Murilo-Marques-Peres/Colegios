@@ -250,7 +250,8 @@ public class PaginaOrientador implements ActionListener{
             aluno.setNomeAluno(nome);
             aluno.setCpfAluno(cpf);
             alunoDAO.inserirAluno(aluno);
-
+            campoInserirAluno.setText("");
+            campoCPF.setText("");
             //dataNascimento = 
             //SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             //try {
