@@ -24,7 +24,10 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 
@@ -37,8 +40,12 @@ public class PaginaOrientador implements ActionListener{
     JPanel painel3 = new JPanel();
     JTextField campoSerie = new JTextField();
     JTextField campoInserirAluno = new JTextField();
-    
+    JTextField campoCPF = new JTextField();
     JTextField campoTroca = new JTextField();
+    JTextField campoDiaNascimento = new JTextField();
+    JTextField campoMesNascimento = new JTextField();
+    JTextField campoAnoNascimento = new JTextField();
+
     JComboBox<String> caixaTurma;
     JComboBox<String> caixaEnsino;
     JComboBox<String> caixaOpcInsEdi;
@@ -50,10 +57,12 @@ public class PaginaOrientador implements ActionListener{
     JLabel labelAno = new JLabel();
     JLabel labelEnsino = new JLabel();
     JLabel labelTroca = new JLabel();
+    JLabel labelNome = new JLabel("Nome:");
+    JLabel labelCPF = new JLabel("CPF:");
     JButton botaoPesquisar = new JButton("Pesquisar");
     JButton botaoInserirAluno = new JButton("Inserir Aluno");
     JButton botaoEditar = new JButton("Editar");
-    JButton botaoConfirmarInserirAluno = new JButton("Confirmar Nome");
+    JButton botaoConfirmarInserirAluno = new JButton("Confirmar Aluno");
     JButton botaoConfirmarEditar = new JButton("Confirmar Edição");
     JButton botaoConfirmarInserirNota = new JButton("Confirmar Nota");
     String[] exemplos = {"A","B"};
@@ -64,6 +73,8 @@ public class PaginaOrientador implements ActionListener{
     "Sociologia", "Ciências Naturais"};
     
     String nome;
+    String cpf;
+    String dataNascimento;
     boolean confirmacaoRepeticao = false;
     int referenciaListaAnterior;
     String pulledId;
@@ -86,6 +97,9 @@ public class PaginaOrientador implements ActionListener{
         campoSerie.setBounds(70,60,30,30);
         campoInserirAluno.setBounds(70,500,250,30);
         campoTroca.setBounds(240,450,50,30);
+        campoCPF.setBounds(335,500, 250,30);
+        campoDiaNascimento.setBounds(280,580, 35,30);
+        campoMesNascimento.setBounds(335,580, 35,30);
         labelSerie.setText("Série");
         labelSerie.setBounds(70,30,60,30);
         labelTurma.setText("Turma");
@@ -99,6 +113,12 @@ public class PaginaOrientador implements ActionListener{
         labelEnsino.setBounds(310,30,60,30);
         labelTroca.setText("Mudar para: (ID)");
         labelTroca.setBounds(120,450,100,30);
+        labelNome.setBounds(70, 460, 250, 30);
+        labelNome.setHorizontalAlignment(JLabel.CENTER);
+        labelNome.setFont(new Font("Comic Sans", Font.BOLD, 16));
+        labelCPF.setBounds(335,460,250,30);
+        labelCPF.setHorizontalAlignment(JLabel.CENTER);
+        labelCPF.setFont(new Font("Comic Sans", Font.BOLD, 16));
         caixaTurma = new JComboBox<String>(exemplos);
         caixaTurma.setBounds(176,60,50,30);
         caixaEnsino = new JComboBox<String>(ensinos);
@@ -115,7 +135,7 @@ public class PaginaOrientador implements ActionListener{
         botaoInserirAluno.addActionListener(this);
         botaoEditar.setBounds(0,290,100,30);
         botaoEditar.addActionListener(this);
-        botaoConfirmarInserirAluno.setBounds(470,500,130,30);
+        botaoConfirmarInserirAluno.setBounds(600,500,130,30);
         botaoConfirmarInserirAluno.addActionListener(this);
         botaoConfirmarEditar.setBounds(600,500,140,30);
         botaoConfirmarEditar.addActionListener(this);
@@ -153,6 +173,9 @@ public class PaginaOrientador implements ActionListener{
         Container c = frame1.getContentPane();
         c.add(campoSerie);
         c.add(campoInserirAluno);
+        c.add(campoCPF);
+        c.add(campoDiaNascimento);
+        c.add(campoMesNascimento);
         c.add(caixaTurma);
         c.add(caixaEnsino);
         c.add(caixaOpcInsEdi);
@@ -164,6 +187,8 @@ public class PaginaOrientador implements ActionListener{
         c.add(labelAno);
         c.add(labelEnsino);
         c.add(labelTroca);
+        c.add(labelNome);
+        c.add(labelCPF);
         c.add(botaoPesquisar);
         c.add(botaoInserirAluno);
         c.add(botaoEditar);
@@ -173,14 +198,17 @@ public class PaginaOrientador implements ActionListener{
         c.add(campoTroca);
         
         campoInserirAluno.setVisible(false);
+        campoTroca.setVisible(false);
+        campoCPF.setVisible(false);
         caixaOpcInsEdi.setVisible(false);
         caixaOpcInsEdi2.setVisible(false);
         caixaOpcMaterias.setVisible(false);
         botaoConfirmarInserirAluno.setVisible(false);
         botaoConfirmarEditar.setVisible(false);
         botaoConfirmarInserirNota.setVisible(false);
-        campoTroca.setVisible(false);
         labelTroca.setVisible(false);
+        labelNome.setVisible(false);
+        labelCPF.setVisible(false);
     }
     PaginaOrientador(){
         backgroundFrame1();
@@ -206,23 +234,32 @@ public class PaginaOrientador implements ActionListener{
             caixaOpcMaterias.setVisible(false);
             campoTroca.setVisible(false);
             labelTroca.setVisible(false);
-
+            
+            labelCPF.setVisible(true);
+            labelNome.setVisible(true);
+            campoCPF.setVisible(true);
             campoInserirAluno.setVisible(true);
             botaoConfirmarInserirAluno.setVisible(true);
         }
         if(e.getSource()==botaoConfirmarInserirAluno){
             nome = campoInserirAluno.getText();
-
+            cpf = campoCPF.getText();
+            //dataNascimento = campoDataNascimento.getText();
+            AlunoDAO alunoDAO = new AlunoDAO();
             Aluno aluno = new Aluno();
             aluno.setNomeAluno(nome);
-
-            String CpfGenerico = "037565989";
-            aluno.setCpfAluno(CpfGenerico);
-
-            AlunoDAO alunoDAO = new AlunoDAO();
+            aluno.setCpfAluno(cpf);
             alunoDAO.inserirAluno(aluno);
 
-            
+            //dataNascimento = 
+            //SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            //try {
+              //  Date dataFormatada = formato.parse(dataNascimento);
+            //} catch (ParseException e1) {
+                // TODO Auto-generated catch block
+              //  e1.printStackTrace();
+            //}
+
 
             /*colegioDAO objColegioDAO = new colegioDAO();
             objColegioDAO.funcaoInserirAlunoBD(objcolegioDTO);
@@ -233,6 +270,9 @@ public class PaginaOrientador implements ActionListener{
             campoInserirAluno.setVisible(false);
             botaoConfirmarInserirAluno.setVisible(false);
             caixaOpcInsEdi.setVisible(false);
+            campoCPF.setVisible(false);
+            labelNome.setVisible(false);
+            labelCPF.setVisible(false);
             
             caixaOpcMaterias.setVisible(true);
             labelTroca.setVisible(true);
