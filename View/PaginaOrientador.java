@@ -59,6 +59,9 @@ public class PaginaOrientador implements ActionListener{
     JLabel labelTroca = new JLabel();
     JLabel labelNome = new JLabel("Nome:");
     JLabel labelCPF = new JLabel("CPF:");
+    JLabel labelDia = new JLabel("Dia:");
+    JLabel labelMes = new JLabel("Mês:");
+    JLabel labelAno2 = new JLabel("Ano:");
     JButton botaoPesquisar = new JButton("Pesquisar");
     JButton botaoInserirAluno = new JButton("Inserir Aluno");
     JButton botaoEditar = new JButton("Editar");
@@ -99,7 +102,11 @@ public class PaginaOrientador implements ActionListener{
         campoTroca.setBounds(240,450,50,30);
         campoCPF.setBounds(335,500, 250,30);
         campoDiaNascimento.setBounds(280,580, 35,30);
+        campoDiaNascimento.setHorizontalAlignment(JLabel.CENTER);
+        campoMesNascimento.setHorizontalAlignment(JLabel.CENTER);
         campoMesNascimento.setBounds(335,580, 35,30);
+        campoAnoNascimento.setBounds(385,580, 80,30);
+        campoAnoNascimento.setHorizontalAlignment(JLabel.CENTER);
         labelSerie.setText("Série");
         labelSerie.setBounds(70,30,60,30);
         labelTurma.setText("Turma");
@@ -108,17 +115,26 @@ public class PaginaOrientador implements ActionListener{
         labelGrau.setBounds(110,42,10,30);
         labelAno.setText("Ano");
         labelAno.setBounds(120,60,40,30);
-        labelAno.setFont(new Font("Comic Sans", Font.BOLD, 16));
+        labelAno.setFont(new Font("Comic Sans", Font.BOLD, 14));
         labelEnsino.setText("Ensino");
         labelEnsino.setBounds(310,30,60,30);
         labelTroca.setText("Mudar para: (ID)");
         labelTroca.setBounds(120,450,100,30);
         labelNome.setBounds(70, 460, 250, 30);
         labelNome.setHorizontalAlignment(JLabel.CENTER);
-        labelNome.setFont(new Font("Comic Sans", Font.BOLD, 16));
+        labelNome.setFont(new Font("Comic Sans", Font.BOLD, 14));
         labelCPF.setBounds(335,460,250,30);
         labelCPF.setHorizontalAlignment(JLabel.CENTER);
-        labelCPF.setFont(new Font("Comic Sans", Font.BOLD, 16));
+        labelCPF.setFont(new Font("Comic Sans", Font.BOLD, 14));
+        labelDia.setBounds(280,540,35,30);
+        labelDia.setFont(new Font("Comic Sans", Font.BOLD, 14));
+        labelDia.setHorizontalAlignment(JLabel.CENTER);
+        labelMes.setBounds(335,540,35,30);
+        labelMes.setFont(new Font("Comic Sans", Font.BOLD, 14));
+        labelMes.setHorizontalAlignment(JLabel.CENTER);
+        labelAno2.setBounds(385,540,80,30);
+        labelAno2.setHorizontalAlignment(JLabel.CENTER);
+        labelAno2.setFont(new Font("Comic Sans", Font.BOLD, 14));
         caixaTurma = new JComboBox<String>(exemplos);
         caixaTurma.setBounds(176,60,50,30);
         caixaEnsino = new JComboBox<String>(ensinos);
@@ -135,7 +151,7 @@ public class PaginaOrientador implements ActionListener{
         botaoInserirAluno.addActionListener(this);
         botaoEditar.setBounds(0,290,100,30);
         botaoEditar.addActionListener(this);
-        botaoConfirmarInserirAluno.setBounds(600,500,130,30);
+        botaoConfirmarInserirAluno.setBounds(600,540,130,30);
         botaoConfirmarInserirAluno.addActionListener(this);
         botaoConfirmarEditar.setBounds(600,500,140,30);
         botaoConfirmarEditar.addActionListener(this);
@@ -176,6 +192,7 @@ public class PaginaOrientador implements ActionListener{
         c.add(campoCPF);
         c.add(campoDiaNascimento);
         c.add(campoMesNascimento);
+        c.add(campoAnoNascimento);
         c.add(caixaTurma);
         c.add(caixaEnsino);
         c.add(caixaOpcInsEdi);
@@ -189,6 +206,9 @@ public class PaginaOrientador implements ActionListener{
         c.add(labelTroca);
         c.add(labelNome);
         c.add(labelCPF);
+        c.add(labelDia);
+        c.add(labelMes);
+        c.add(labelAno2);
         c.add(botaoPesquisar);
         c.add(botaoInserirAluno);
         c.add(botaoEditar);
@@ -200,6 +220,9 @@ public class PaginaOrientador implements ActionListener{
         campoInserirAluno.setVisible(false);
         campoTroca.setVisible(false);
         campoCPF.setVisible(false);
+        campoDiaNascimento.setVisible(false);
+        campoMesNascimento.setVisible(false);
+        campoAnoNascimento.setVisible(false);
         caixaOpcInsEdi.setVisible(false);
         caixaOpcInsEdi2.setVisible(false);
         caixaOpcMaterias.setVisible(false);
@@ -209,6 +232,9 @@ public class PaginaOrientador implements ActionListener{
         labelTroca.setVisible(false);
         labelNome.setVisible(false);
         labelCPF.setVisible(false);
+        labelAno2.setVisible(false);
+        labelMes.setVisible(false);
+        labelDia.setVisible(false);
     }
     PaginaOrientador(){
         backgroundFrame1();
@@ -234,7 +260,13 @@ public class PaginaOrientador implements ActionListener{
             caixaOpcMaterias.setVisible(false);
             campoTroca.setVisible(false);
             labelTroca.setVisible(false);
-            
+
+            campoDiaNascimento.setVisible(true);
+            campoMesNascimento.setVisible(true);
+            campoAnoNascimento.setVisible(true);
+            labelDia.setVisible(true);
+            labelMes.setVisible(true);
+            labelAno2.setVisible(true);
             labelCPF.setVisible(true);
             labelNome.setVisible(true);
             campoCPF.setVisible(true);
@@ -274,6 +306,12 @@ public class PaginaOrientador implements ActionListener{
             campoCPF.setVisible(false);
             labelNome.setVisible(false);
             labelCPF.setVisible(false);
+            labelDia.setVisible(false);
+            labelMes.setVisible(false);
+            labelAno2.setVisible(false);
+            campoDiaNascimento.setVisible(false);
+            campoMesNascimento.setVisible(false);
+            campoAnoNascimento.setVisible(false);
             
             caixaOpcMaterias.setVisible(true);
             labelTroca.setVisible(true);
