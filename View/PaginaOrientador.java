@@ -46,6 +46,8 @@ public class PaginaOrientador implements ActionListener{
     JTextField campoMesNascimento = new JTextField();
     JTextField campoAnoNascimento = new JTextField();
 
+    Date dataFormatada;
+
     JComboBox<String> caixaTurma;
     JComboBox<String> caixaEnsino;
     JComboBox<String> caixaOpcInsEdi;
@@ -276,14 +278,31 @@ public class PaginaOrientador implements ActionListener{
         if(e.getSource()==botaoConfirmarInserirAluno){
             nome = campoInserirAluno.getText();
             cpf = campoCPF.getText();
-            //dataNascimento = campoDataNascimento.getText();
+
+            dataNascimento = campoAnoNascimento.getText().concat("-").concat(campoMesNascimento.getText()).
+            concat("-").concat(campoDiaNascimento.getText());
+            System.out.println(dataNascimento);
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            
+            
+            
             AlunoDAO alunoDAO = new AlunoDAO();
             Aluno aluno = new Aluno();
             aluno.setNomeAluno(nome);
             aluno.setCpfAluno(cpf);
-            alunoDAO.inserirAluno(aluno);
+            
             campoInserirAluno.setText("");
             campoCPF.setText("");
+            
+            try {
+                dataFormatada = formato.parse(dataNascimento);
+                
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
+            aluno.setNascimentoAluno(dataFormatada);
+            System.out.println(dataFormatada);
+            alunoDAO.inserirAluno(aluno);
             //dataNascimento = 
             //SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             //try {

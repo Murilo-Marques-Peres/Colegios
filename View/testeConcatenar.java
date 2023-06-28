@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class testeConcatenar {
+    static Date dataFormatada = null;
 
     public static String[] push(String[] array, String itemAdicionado){
         int tamanhoArray = array.length;
@@ -15,17 +16,26 @@ public class testeConcatenar {
         return arrayNovo;
     }
     public static void main(String[] args) throws ParseException{
-        /*String dia, mes, ano;
+        String dia, mes, ano;
         dia = "31";
         mes = "12";
         ano = "1998";
+        
+        
+
         String data = ano.concat("-").concat(mes).concat("-").concat(dia);
         System.out.println(data);
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        Date dataFormatada = formato.parse(data);
+        
+        try {
+                dataFormatada = formato.parse(data);
+                
+        }catch (ParseException e1) {
+                e1.printStackTrace();
+            }
         System.out.println("Data formatada: " + formato.format(dataFormatada));
-        System.out.println("Date = " + dataFormatada);*/ // <-primeiro comentario
-
+        System.out.println("Date = " + dataFormatada); // <-primeiro comentario
+        
         
 
 

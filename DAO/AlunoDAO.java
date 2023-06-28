@@ -14,7 +14,9 @@ public class AlunoDAO {
     PreparedStatement pstm;
 
     public void inserirAluno(Aluno aluno){
-        String sql = "insert into aluno (cpf, nome) values (?,?)";
+        String sql = "insert into aluno (cpf, nome, nascimento) values (?,?,?)";
+        
+        java.sql.Date sqlDate = new java.sql.Date(aluno.getNascimentoAluno().getTime());
 
         conn = new ConexaoDAO().conectaDB();
 
@@ -22,6 +24,7 @@ public class AlunoDAO {
             pstm = conn.prepareStatement(sql);
             pstm.setString(1, aluno.getCpfAluno());
             pstm.setString(2, aluno.getNomeAluno());
+            pstm.setDate(3, sqlDate);
             pstm.execute();
             pstm.close();
             
