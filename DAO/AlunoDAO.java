@@ -27,6 +27,8 @@ public class AlunoDAO {
             pstm.setDate(3, sqlDate);
             pstm.execute();
             pstm.close();
+            JOptionPane.showMessageDialog(null, "Aluno " + aluno.getNomeAluno() + 
+            " com CPF " + aluno.getCpfAluno() + " e data de nascimento " + sqlDate +" Inserido!!");
             
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "AlunoDAO" + erro);

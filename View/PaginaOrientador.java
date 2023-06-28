@@ -291,8 +291,7 @@ public class PaginaOrientador implements ActionListener{
             aluno.setNomeAluno(nome);
             aluno.setCpfAluno(cpf);
             
-            campoInserirAluno.setText("");
-            campoCPF.setText("");
+            
             
             try {
                 dataFormatada = formato.parse(dataNascimento);
@@ -303,6 +302,11 @@ public class PaginaOrientador implements ActionListener{
             aluno.setNascimentoAluno(dataFormatada);
             System.out.println(dataFormatada);
             alunoDAO.inserirAluno(aluno);
+            campoInserirAluno.setText("");
+            campoCPF.setText("");
+            campoDiaNascimento.setText("");
+            campoMesNascimento.setText("");
+            campoAnoNascimento.setText("");
             //dataNascimento = 
             //SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             //try {
