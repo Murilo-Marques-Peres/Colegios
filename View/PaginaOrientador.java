@@ -15,7 +15,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 import DAO.AlunoDAO;
+import DAO.DesempenhoDAO;
 import DTO.Aluno;
+import DTO.Desempenho;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -40,8 +42,9 @@ public class PaginaOrientador implements ActionListener{
     JPanel painel3 = new JPanel();
     JTextField campoSerie = new JTextField();
     JTextField campoInserirAluno = new JTextField();
+    JTextField campoInserirNota = new JTextField();
     JTextField campoCPF = new JTextField();
-    JTextField campoTroca = new JTextField();
+    JTextField campoCPFNota = new JTextField();
     JTextField campoDiaNascimento = new JTextField();
     JTextField campoMesNascimento = new JTextField();
     JTextField campoAnoNascimento = new JTextField();
@@ -58,7 +61,6 @@ public class PaginaOrientador implements ActionListener{
     JLabel labelGrau = new JLabel();
     JLabel labelAno = new JLabel();
     JLabel labelEnsino = new JLabel();
-    JLabel labelTroca = new JLabel();
     JLabel labelNome = new JLabel("Nome:");
     JLabel labelCPF = new JLabel("CPF:");
     JLabel labelDia = new JLabel("Dia:");
@@ -75,7 +77,7 @@ public class PaginaOrientador implements ActionListener{
     String[] opcoesInsEdi = {"Nota 1","Nota 2","Nota 3"};
     String[] opcoesInsEdi2 = {"Nota 1","Nota 2","Nota 3"};
     String[] opcoesMaterias1 = {"Português", "Matemática","Literatura", "Inglês", "Espanhol", "História",
-    "Sociologia", "Ciências Naturais"};
+    "Sociologia", "Ciências Naturais", "Física", "Biologia"};
     
     String nome;
     String cpf;
@@ -100,9 +102,12 @@ public class PaginaOrientador implements ActionListener{
         campoSerie.setHorizontalAlignment(JTextField.CENTER);
         campoSerie.setFont(new Font("Comic Sans", Font.BOLD, 14));
         campoSerie.setBounds(70,60,30,30);
-        campoInserirAluno.setBounds(70,500,250,30);
-        campoTroca.setBounds(240,450,50,30);
+        campoInserirAluno.setBounds(70,500,250,30);   
+        campoInserirNota.setBounds(280,500,50,30);
+        campoInserirNota.setHorizontalAlignment(JTextField.CENTER); 
         campoCPF.setBounds(335,500, 250,30);
+        campoCPFNota.setHorizontalAlignment(JTextField.CENTER);
+        campoCPFNota.setBounds(0,500,250,30);
         campoDiaNascimento.setBounds(280,580, 35,30);
         campoDiaNascimento.setHorizontalAlignment(JLabel.CENTER);
         campoMesNascimento.setHorizontalAlignment(JLabel.CENTER);
@@ -120,8 +125,6 @@ public class PaginaOrientador implements ActionListener{
         labelAno.setFont(new Font("Comic Sans", Font.BOLD, 14));
         labelEnsino.setText("Ensino");
         labelEnsino.setBounds(310,30,60,30);
-        labelTroca.setText("Mudar para: (ID)");
-        labelTroca.setBounds(120,450,100,30);
         labelNome.setBounds(70, 460, 250, 30);
         labelNome.setHorizontalAlignment(JLabel.CENTER);
         labelNome.setFont(new Font("Comic Sans", Font.BOLD, 14));
@@ -191,7 +194,9 @@ public class PaginaOrientador implements ActionListener{
         Container c = frame1.getContentPane();
         c.add(campoSerie);
         c.add(campoInserirAluno);
+        c.add(campoInserirNota);
         c.add(campoCPF);
+        c.add(campoCPFNota);
         c.add(campoDiaNascimento);
         c.add(campoMesNascimento);
         c.add(campoAnoNascimento);
@@ -205,7 +210,6 @@ public class PaginaOrientador implements ActionListener{
         c.add(labelGrau);
         c.add(labelAno);
         c.add(labelEnsino);
-        c.add(labelTroca);
         c.add(labelNome);
         c.add(labelCPF);
         c.add(labelDia);
@@ -217,21 +221,20 @@ public class PaginaOrientador implements ActionListener{
         c.add(botaoConfirmarInserirAluno);
         c.add(botaoConfirmarEditar);
         c.add(botaoConfirmarInserirNota);
-        c.add(campoTroca);
         
         campoInserirAluno.setVisible(false);
-        campoTroca.setVisible(false);
         campoCPF.setVisible(false);
+        campoCPFNota.setVisible(false);
         campoDiaNascimento.setVisible(false);
         campoMesNascimento.setVisible(false);
         campoAnoNascimento.setVisible(false);
+        campoInserirNota.setVisible(false);
         caixaOpcInsEdi.setVisible(false);
         caixaOpcInsEdi2.setVisible(false);
         caixaOpcMaterias.setVisible(false);
         botaoConfirmarInserirAluno.setVisible(false);
         botaoConfirmarEditar.setVisible(false);
         botaoConfirmarInserirNota.setVisible(false);
-        labelTroca.setVisible(false);
         labelNome.setVisible(false);
         labelCPF.setVisible(false);
         labelAno2.setVisible(false);
@@ -260,8 +263,9 @@ public class PaginaOrientador implements ActionListener{
             caixaOpcInsEdi.setVisible(false);
             caixaOpcInsEdi2.setVisible(false);
             caixaOpcMaterias.setVisible(false);
-            campoTroca.setVisible(false);
-            labelTroca.setVisible(false);
+            campoInserirNota.setVisible(false);
+            campoCPFNota.setVisible(false);
+
 
             campoDiaNascimento.setVisible(true);
             campoMesNascimento.setVisible(true);
@@ -281,7 +285,6 @@ public class PaginaOrientador implements ActionListener{
 
             dataNascimento = campoAnoNascimento.getText().concat("-").concat(campoMesNascimento.getText()).
             concat("-").concat(campoDiaNascimento.getText());
-            System.out.println(dataNascimento);
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             
             
@@ -300,7 +303,6 @@ public class PaginaOrientador implements ActionListener{
                 e1.printStackTrace();
             }
             aluno.setNascimentoAluno(dataFormatada);
-            System.out.println(dataFormatada);
             alunoDAO.inserirAluno(aluno);
             campoInserirAluno.setText("");
             campoCPF.setText("");
@@ -335,16 +337,37 @@ public class PaginaOrientador implements ActionListener{
             campoDiaNascimento.setVisible(false);
             campoMesNascimento.setVisible(false);
             campoAnoNascimento.setVisible(false);
+            campoInserirAluno.setVisible(false);
             
             caixaOpcMaterias.setVisible(true);
-            labelTroca.setVisible(true);
             caixaOpcInsEdi2.setVisible(true);
-            campoInserirAluno.setVisible(true);
+            campoInserirNota.setVisible(true);
+            campoCPFNota.setVisible(true);
             botaoConfirmarEditar.setVisible(true);
-            campoTroca.setVisible(true);
-            
 
             
+        }
+        if(e.getSource()==botaoConfirmarEditar){
+            String notaX = campoInserirNota.getText();
+            String cpfNota = campoCPFNota.getText();
+            float floatNotaX = Float.valueOf(notaX);
+            int valorCombo = caixaOpcInsEdi2.getSelectedIndex();
+            String materiaAluno = caixaOpcMaterias.getSelectedItem().toString();            
+            //ArrayList<String> listaMaterias = new ArrayList<String>();
+            
+
+            DesempenhoDAO desempenhoDAO = new DesempenhoDAO();
+            Desempenho desempenho = new Desempenho();
+            if(valorCombo==0){
+                desempenho.setNota1(floatNotaX);
+            }
+            if(valorCombo==1){
+                desempenho.setNota2(floatNotaX);
+            }
+            if(valorCombo==2){
+                desempenho.setNota3(floatNotaX);
+            }
+            desempenhoDAO.AtualizarDesempenho(desempenho, valorCombo, materiaAluno, cpfNota);
         }
     }
 }
